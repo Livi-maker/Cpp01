@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 
-int	search_and_replace(std::fstream &newFile, std::string line, std::string toFind)
+void	search_and_replace(std::fstream &newFile, std::string line, std::string toFind, std::string toReplace)
 {
 	int		i;
 	int		x;
@@ -20,30 +20,31 @@ int	search_and_replace(std::fstream &newFile, std::string line, std::string toFi
 			newFile << line[i];
 		}
 		if (x == toFind.length())
-		{
-			newFile << "x";
-			return (i - x + 1);
-		}
+			newFile << toReplace;
 	}
-	return (-1);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	std::ifstream outfile("text.txt");
+	if (ac != 4)
+	{
+		std::cout << "Error: argument required:\n-filename -toFind -toReplace\n";
+		return (1);
+	}
+	std::ifstream outfile(av[1]);
 	std::string	line;
-	int	i;
-	std::string line2;
 	std::fstream newFile("replace.txt", std::ios::in | std::ios::app);
 
 	if (outfile.is_open() && newFile.is_open())
 	{
 		while (std::getline(outfile, line))
 		{
-			i = search_and_replace(newFile, line, "i");
-			std::cout << i << line << "\n";
+			search_and_replace(newFile, line, av[2], av[3]);
+			if (outfile.peek() != EOF)
+				newFile << "\n";
 		}
 		outfile.close();
+		newFile.close();
 	}
 	else
 		std::cout << "Error: couldn't open file\n";

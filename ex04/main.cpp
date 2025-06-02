@@ -7,6 +7,7 @@ void	search_and_replace(std::fstream &newFile, std::string line, std::string toF
 	int		i;
 	int		x;
 	char	c;
+	int		r;
 
 	x = 0;
 	for (i = 0; i < line.length(); i ++)
@@ -21,6 +22,9 @@ void	search_and_replace(std::fstream &newFile, std::string line, std::string toF
 		}
 		if (x == toFind.length())
 			newFile << toReplace;
+		else if (x != 0 && i + 1 <= line.length() && line[i + 1] != toFind[x])
+			for (r = 0; r < x; r++)
+				newFile << line[i - x + r + 1];
 	}
 }
 

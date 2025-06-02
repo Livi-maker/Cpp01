@@ -2,13 +2,11 @@
 
 Zombie* zombieHorde(int N, std::string name)
 {
-	Zombie* array;
+	Zombie* pointer;
+	int		i;
 
-	array = new Zombie[N];
-	for (N > 0; N--; array[N])
-	{
-		array[N] = Zombie(name);
-		array[N].announce();
-	}
-	return (array);
+	pointer = new Zombie[N];
+	for (i = 0; i < 10; i++)
+		pointer[i].set_name(name);
+	return (pointer);
 }

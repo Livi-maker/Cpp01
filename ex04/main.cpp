@@ -2,42 +2,43 @@
 #include <fstream>
 #include <string>
 
-void	search_and_replace(std::fstream &newFile, std::string line, std::string toFind, std::string toReplace)
+void	search_and_replace(std::ofstream &newFile, std::string line, std::string toFind, std::string toReplace)
 {
-	long unsigned int	i;
-	long unsigned int	x;
-	char				c;
-	long unsigned int	r;
+	size_t			pos;
+	size_t			len;
+	std::string		temp;
 
-	x = 0;
-	for (i = 0; i < line.size(); i ++)
+	pos = 0;
+	len = 0;
+	while (len < line.length())
 	{
-		c = toFind[x];
-		if (line[i] == c)
-			x++;
+		pos = line.find(toFind, pos);
+		if (pos == (size_t)-1)
+		{
+			temp.append(line, len);
+			break ;
+		}
 		else
 		{
-			x = 0;
-			newFile << line[i];
+			temp.append(line, len, pos - len);
+			temp.append(toReplace);
+			pos = pos + toFind.length();
+			len = pos;
 		}
-		if (x == toFind.size())
-			newFile << toReplace;
-		else if (x != 0 && i + 1 <= line.size() && line[i + 1] != toFind[x])
-			for (r = 0; r < x; r++)
-				newFile << line[i - x + r + 1];
 	}
+	newFile << temp;
 }
 
 int	main(int ac, char **av)
 {
 	if (ac != 4)
 	{
-		std::cout << "Error: argument required:\n-filename -toFind -toReplace\n";
+		std::cout << "Error: arguments required:\n-filename -toFind -toReplace\n";
 		return (1);
 	}
 	std::ifstream outfile(av[1]);
 	std::string	line;
-	std::fstream newFile("replace.txt", std::ios::in | std::ios::app);
+	std::ofstream newFile("replace.txt");
 
 	if (outfile.is_open() && newFile.is_open())
 	{

@@ -3,7 +3,6 @@
 int main()
 {
 	Zombie	*pointer;
-	Zombie	*temp;
 	int		i;
 
 	pointer = zombieHorde(10, "Liv");

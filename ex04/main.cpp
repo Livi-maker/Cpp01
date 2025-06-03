@@ -4,13 +4,13 @@
 
 void	search_and_replace(std::fstream &newFile, std::string line, std::string toFind, std::string toReplace)
 {
-	int		i;
-	int		x;
-	char	c;
-	int		r;
+	long unsigned int	i;
+	long unsigned int	x;
+	char				c;
+	long unsigned int	r;
 
 	x = 0;
-	for (i = 0; i < line.length(); i ++)
+	for (i = 0; i < line.size(); i ++)
 	{
 		c = toFind[x];
 		if (line[i] == c)
@@ -20,9 +20,9 @@ void	search_and_replace(std::fstream &newFile, std::string line, std::string toF
 			x = 0;
 			newFile << line[i];
 		}
-		if (x == toFind.length())
+		if (x == toFind.size())
 			newFile << toReplace;
-		else if (x != 0 && i + 1 <= line.length() && line[i + 1] != toFind[x])
+		else if (x != 0 && i + 1 <= line.size() && line[i + 1] != toFind[x])
 			for (r = 0; r < x; r++)
 				newFile << line[i - x + r + 1];
 	}

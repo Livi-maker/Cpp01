@@ -13,7 +13,9 @@
 #include "Zombie.hpp"
 
 Zombie::Zombie()
-{};
+{
+	std::cout << "Zombie was created\n";
+};
 
 Zombie::Zombie(std::string name)
 {

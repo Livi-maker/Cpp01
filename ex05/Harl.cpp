@@ -2,10 +2,10 @@
 
 Harl::Harl(void)
 {
-	levels[0] = "debug";
-	levels[1] = "info";
-	levels[2] = "warning";
-	levels[3] = "error";
+	levels[0] = "DEBUG";
+	levels[1] = "INFO";
+	levels[2] = "WARNING";
+	levels[3] = "ERROR";
 	functions[0] = &Harl::debug;
 	functions[1] = &Harl::info;
 	functions[2] = &Harl::warning;

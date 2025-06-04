@@ -36,19 +36,21 @@ int	main(int ac, char **av)
 		std::cout << "Error: arguments required:\n-filename -toFind -toReplace\n";
 		return (1);
 	}
-	std::ifstream outfile(av[1]);
+	std::ifstream infile(av[1]);
+	std::string file;
 	std::string	line;
 	std::ofstream newFile("replace.txt");
 
-	if (outfile.is_open() && newFile.is_open())
+	if (infile.is_open() && newFile.is_open())
 	{
-		while (std::getline(outfile, line))
+		while (std::getline(infile, line))
 		{
-			search_and_replace(newFile, line, av[2], av[3]);
-			if (outfile.peek() != EOF)
-				newFile << "\n";
+			file.append(line);
+			if (infile.peek() != EOF)
+				file.append("\n");
 		}
-		outfile.close();
+		search_and_replace(newFile, file, av[2], av[3]);
+		infile.close();
 		newFile.close();
 	}
 	else

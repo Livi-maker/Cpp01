@@ -39,7 +39,9 @@ int	main(int ac, char **av)
 	std::ifstream infile(av[1]);
 	std::string file;
 	std::string	line;
-	std::ofstream newFile("replace.txt");
+	std::string name = av[1];
+	name.append(".replace");
+	std::ofstream newFile(name.c_str());
 
 	if (infile.is_open() && newFile.is_open())
 	{
